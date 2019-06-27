@@ -19,8 +19,6 @@ func main() {
 
 	fmt.Printf("using network %s, local address %s, connect to %s...\n", c.RemoteAddr().Network(), c.LocalAddr().String(), c.RemoteAddr().String())
 
-
-
 	// read bg
 	go func(c net.Conn) {
 		for {
