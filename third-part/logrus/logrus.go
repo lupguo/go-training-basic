@@ -7,32 +7,24 @@ import (
 	"os"
 )
 
-var Environment = "development"
+var Environment = "dev"
 
 func init() {
-	if Environment == "production" {
-		logrus.SetFormatter(&logrus.JSONFormatter{
-			DisableTimestamp: false,
-		})
-		logrus.SetLevel(logrus.InfoLevel)
-
-		logFile := os.TempDir() + "logrus.log"
-		//You could set this to any `io.Writer` such as a file
-		file, _ := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-		// Output to stdout instead of the default stderr
-		// Can be any io.Writer, see below for File example
-		logrus.SetOutput(file)
-	} else {
-		// The TextFormatter is default, you don't actually have to do this.
-		logrus.SetFormatter(&logrus.JSONFormatter{
-			DisableTimestamp: false,
-		})
+	logrus.SetFormatter(&logrus.JSONFormatter{
+		DisableTimestamp: false,
+	})
+	switch Environment {
+	case "dev", "test":
 		logrus.SetLevel(logrus.TraceLevel)
-		//logrus.SetReportCaller(true)
-
-		// Output to stdout instead of the default stderr
-		// Can be any io.Writer, see below for File example
 		logrus.SetOutput(os.Stdout)
+	case "prod":
+		logrus.SetLevel(logrus.InfoLevel)
+		logFile := os.TempDir() + "logrus.log"
+		file, err := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+		if err != nil {
+			logrus.Fatal(err)
+		}
+		logrus.SetOutput(file)
 	}
 }
 
@@ -50,7 +42,7 @@ func main() {
 	ServerLogging()
 }
 
-func ServerLogging()  {
+func ServerLogging() {
 	w := logrus.StandardLogger().Writer()
 	_ = &http.Server{
 		ErrorLog: log.New(w, "", 0),
@@ -77,28 +69,28 @@ func DefaultLogging() {
 		"new":      false,
 	})
 
-	dfLogger.Trace("---------trace level msg,,,")
-	dfLogger.Debug("---------debug level msg..")
-	dfLogger.Info("---------info level msg.")
-	dfLogger.Warn("---------warn level msg!!")
-	dfLogger.Error("---------error level msg xxx.")
+	dfLogger.Trace("---------trace level msg")
+	dfLogger.Debug("---------debug level msg")
+	dfLogger.Info("---------info level msg")
+	dfLogger.Warn("---------warn level msg")
+	dfLogger.Error("---------error level msg")
 	//dfLogger.Fatal("user join activity !")
 	//dfLogger.Panic("panic level msg @")
 }
 
 func FileLogging() {
-	flog := logrus.New()
+	fileLogger := logrus.New()
 	logFile := os.TempDir() + "logrus.log"
 
 	//You could set this to any `io.Writer` such as a file
 	file, err := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err == nil {
-		flog.SetOutput(file)
+		fileLogger.SetOutput(file)
 	} else {
 		logrus.Info("Failed to log to file, using default stderr")
 	}
 
-	flog.WithFields(logrus.Fields{
+	fileLogger.WithFields(logrus.Fields{
 		"animal": "walrus",
 		"size":   10,
 	}).Warn("A group of walrus emerges from the ocean")
