@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/mattn/go-colorable"
 	"github.com/sirupsen/logrus"
 	"log"
 	"net/http"
@@ -13,9 +14,15 @@ func init() {
 	logrus.SetFormatter(&logrus.JSONFormatter{
 		DisableTimestamp: false,
 	})
+	logrus.SetLevel(logrus.TraceLevel)
 	switch Environment {
 	case "dev", "test":
-		logrus.SetLevel(logrus.TraceLevel)
+		logrus.SetFormatter(&logrus.TextFormatter{
+			DisableTimestamp: false,
+			ForceColors: true,
+		})
+		logrus.SetOutput(colorable.NewColorableStdout())
+	case "stage":
 		logrus.SetOutput(os.Stdout)
 	case "prod":
 		logrus.SetLevel(logrus.InfoLevel)

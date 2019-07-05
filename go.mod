@@ -13,6 +13,7 @@ require (
 	github.com/sirupsen/logrus v1.4.2 // indirect
 	github.com/sparrc/go-ping v0.0.0-20190530223606-d596e7045d42
 	github.com/spf13/pflag v1.0.3 // indirect
+	github.com/stretchr/objx v0.2.0 // indirect
 	golang.org/x/net v0.0.0-20190522155817-f3200d17e092
 	gopl.io v0.0.0-20161206225729-b725d6015f98 // indirect
 )
