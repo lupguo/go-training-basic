@@ -1,0 +1,27 @@
+contentdir: content
+default: https://google.com
+desc:
+  bing: |
+    微软Bing搜索是国际领先的搜索引擎，
+    为中国用户提供网页、图片、视频、学术、
+    词典、翻译、地图等全球信息搜索服务。
+  google: |
+    Google有限公司是源自美国的跨国科技公司，
+    为Alphabet Inc.的子公司，
+    业务范围涵盖互联网广告、互联网搜索、云计算等领域，
+    开发并提供大量基于互联网的产品与服务，
+    其主要利润来自于AdWords等广告服务。
+layoutdir: layouts
+searchengine:
+- Google
+- Bing
+- Wikipedia
+- Baidu
+taxonomies:
+  category: categories
+  tag: tags
+urls:
+  baidu: https://baidu.com
+  bing: https://bing.com
+  google: https://google.com
+  wiki: https://wikipedia.org
