@@ -24,4 +24,6 @@ urls:
   baidu: https://baidu.com
   bing: https://bing.com
   google: https://google.com
+  sina: https://sina.com
+  sogou: https://sogou.cn
   wiki: https://wikipedia.org
