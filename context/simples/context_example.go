@@ -66,9 +66,9 @@ func dispatchWork(ctx context.Context, workNo int) {
 	// tips: 可以调整工人的工作时间看效果
 	select {
 	case fin := <-finish:
-		fmt.Println("headman : ", fin)
+		fmt.Println("headman:", fin)
 	case <-timeoutCtx.Done():
-		fmt.Printf("headman : work(%d) too slow, over time limit!!\n", workNo)
+		fmt.Printf("headman: work(%d) too slow, over time limit!!\n", workNo)
 
 		// 关闭finish通道，避免worker的goroutine泄露
 		//close(finish)
@@ -85,5 +85,5 @@ func hardWork(workNo int, finish chan<- string) {
 	time.Sleep(workExpend)
 
 	// 通知派遣工头，完成了任务了
-	finish <- fmt.Sprintf("ok, finished no. %d work.", workNo)
+	finish <- fmt.Sprintf("ok, i have finished #%d work.", workNo)
 }
