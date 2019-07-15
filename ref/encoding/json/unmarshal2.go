@@ -2,15 +2,17 @@ package main
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
 )
 
 func main() {
-	var jsonBlob = []byte(`{"name":"UserA","nick":"NA","age":13,"likes":["ball","skating"],"friends":[{"F1":"FName1"},{"F2":"FName2"}],"dead":false}`)
-	vv := make(map[string]interface{})
+	var jsonBlob = []byte(`{"name":"UserA","nick":"NickA","age":13,"likes":["ball","skating"],
+"friends":[{"F1":"FName1"},{"F2":"FName2"}],"dead":false}`)
+	//vv := make(map[string]interface{})
+	var vv interface{}
 	err := json.Unmarshal(jsonBlob, &vv)
 	if err != nil {
-		log.Fatalln(err)
+		panic(err)
 	}
-	log.Printf("%+v\n", vv)
+	fmt.Printf("%#v\n", vv)
 }

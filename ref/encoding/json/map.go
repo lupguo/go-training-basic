@@ -24,9 +24,12 @@ func main() {
 			"high":       "JiuZhong",
 			"university": "JiangXiShiFan",
 		},
+		"room": KV{},
 	}
 	
 	// json encode map
 	b, _ := json.MarshalIndent(ume, "", "\t")
 	fmt.Printf("%s\n", b)
+	c, _ := json.Marshal(ume)
+	fmt.Printf("%s\n", c)
 }
