@@ -5,7 +5,12 @@ import (
 )
 
 func main() {
+	fmt.Println("sw1>>")
+	sw1()
+	fmt.Println("sw2>>")
 	sw2()
+	fmt.Println("sw3>>")
+	sw3()
 }
 
 // fallthrough +1024unit
@@ -22,6 +27,7 @@ func sw2() {
 			fmt.Println("\tout range")
 		}
 	}
+	fmt.Println()
 }
 
 // comma, equal fallthrough +1024unit
