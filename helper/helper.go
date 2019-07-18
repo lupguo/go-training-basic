@@ -17,10 +17,11 @@ const (
 	LogFilename = "./storage/running/running.log"
 )
 
-type KV map[string]interface{}
+type kv map[string]interface{}
 
-func MonitorKey() KV {
-	return KV{
+// MonitorKey setting num goroutine
+func monitorKey() kv {
+	return kv{
 		"NumGoroutine": runtime.NumGoroutine(),
 	}
 }
@@ -43,7 +44,7 @@ func statusTo(toDst int, interval time.Duration) {
 	_, _ = fmt.Fprintf(tw, "Time\tKey\tVal\n---\t---\t---\n")
 	// status write map
 	for {
-		for k, v := range MonitorKey() {
+		for k, v := range monitorKey() {
 			_, _ = fmt.Fprintf(tw, "%s\t%s\t%v\n", time.Now().Format(time.RFC3339), k, v)
 		}
 		//_, _ = fmt.Fprintf(tw, "---\t---\t---\n")
