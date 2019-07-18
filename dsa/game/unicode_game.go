@@ -45,7 +45,7 @@ var (
 	rewards = map[int]*Reward{
 		18: {18, 0x1F947},
 		//15:  {15, 0x1F948},
-		//12:  {12, 0x1F948},
+		12:  {12, 0x1F948},
 		//9:  {9, 0x1F949},
 		//6:  {6, 0x1F949},
 		3:  {3, 0x1F949},
@@ -166,7 +166,7 @@ func (g *Game) ScoreHandle(score *int) {
 func main() {
 	g := NewGame()
 	// background prepare running
-	go g.Prepare(200 * time.Millisecond)
+	go g.Prepare(100 * time.Millisecond)
 	// game start
 	go g.Start()
 	// wait
