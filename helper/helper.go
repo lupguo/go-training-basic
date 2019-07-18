@@ -1,0 +1,65 @@
+package helper
+
+import (
+	"fmt"
+	"io"
+	"log"
+	"os"
+	"path"
+	"runtime"
+	"text/tabwriter"
+	"time"
+)
+
+const (
+	ToFile      = 0
+	ToStdout    = 1
+	LogFilename = "./storage/running/running.log"
+)
+
+type KV map[string]interface{}
+
+func MonitorKey() KV {
+	return KV{
+		"NumGoroutine": runtime.NumGoroutine(),
+	}
+}
+
+// GoStatus get running status background, and store into ./storage/running
+func StatusLog(toDst int, interval time.Duration) {
+	go statusTo(toDst, interval)
+}
+
+func statusTo(toDst int, interval time.Duration) {
+	var dst io.Writer
+	if toDst == ToFile {
+		// running log
+		dst = MustOpenFile(LogFilename)
+	} else {
+		dst = os.Stdout
+	}
+	// header write
+	tw := tabwriter.NewWriter(dst, 0, 0, 2, ' ', 0)
+	_, _ = fmt.Fprintf(tw, "Time\tKey\tVal\n---\t---\t---\n")
+	// status write map
+	for {
+		for k, v := range MonitorKey() {
+			_, _ = fmt.Fprintf(tw, "%s\t%s\t%v\n", time.Now().Format(time.RFC3339), k, v)
+		}
+		//_, _ = fmt.Fprintf(tw, "---\t---\t---\n")
+		_ = tw.Flush()
+		time.Sleep(interval)
+	}
+}
+
+func MustOpenFile(filename string) *os.File {
+	dir := path.Dir(filename)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		log.Fatalln(err)
+	}
+	logFile, err := os.OpenFile(filename, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0644)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return logFile
+}
