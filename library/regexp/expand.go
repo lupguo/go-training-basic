@@ -18,14 +18,9 @@ func main() {
 	// Regex pattern captures "key: value" pair from the content.
 	pattern := regexp.MustCompile(`(?m)(?P<key>\w+):\s+(?P<value>\w+).*$`)
 
-	pattern2 := regexp.MustCompilePOSIX(`hello(dd)?git`)
-
-	p,ok := pattern2.LiteralPrefix()
-	fmt.Println(p, ok)
-
 	// Template to convert "key: value" to "key=value" by
 	// referencing the values captured by the regex pattern.
-	template := []byte("$key=$value\n")
+	template := []byte("$key=>$value\n")
 
 	result := []byte{}
 

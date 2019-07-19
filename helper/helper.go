@@ -64,3 +64,24 @@ func MustOpenFile(filename string) *os.File {
 	}
 	return logFile
 }
+
+// TwShow help print format
+func TwShow(tw *tabwriter.Writer) func(args ...interface{}) {
+	lp := false
+	show := func(args ...interface{}) {
+		for _, v := range args {
+			_, _ = fmt.Fprintf(tw, "%#v\t", v)
+		}
+		_, _ = tw.Write([]byte("\n"))
+
+		// line print
+		if lp == false {
+			lp = true
+			for range args {
+				_, _ = tw.Write([]byte("----\t"))
+			}
+			_, _ = tw.Write([]byte("\n"))
+		}
+	}
+	return show
+}
