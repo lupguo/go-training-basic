@@ -16,5 +16,5 @@ func main() {
 	fmt.Println(re.ReplaceAllString("-ab-axxb-", "T"))
 	fmt.Println(re.ReplaceAllString("-ab-axxb-", "$1"))
 	fmt.Println(re.ReplaceAllString("-ab-axxb-", "$1W")) // $1W not found
-	fmt.Println(re.ReplaceAllString("-ab-axxb-", "${1}W")) 
+	fmt.Println(re.ReplaceAllString("-ab-axxb-", "${1}W"))
 }
