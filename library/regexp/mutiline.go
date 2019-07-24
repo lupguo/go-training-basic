@@ -8,42 +8,50 @@ import (
 )
 
 func main() {
+	url := `<a href="http://tkstorm.com" target="_blank">http://tkstorm.com</a>`
+
 	// open file get content
 	data, err := ioutil.ReadFile(helper.TestDataPath + `/html/download.html`)
 	if err != nil {
 		log.Fatalln(data)
 	}
+	res := string(data)
 
-	var res string
-	// regex replace data
-	fitRe1 := regexp.MustCompile(`(?ms)<div class="content">\s+<div class="col-md-7 middle-col">.*<div class="clearer"></div>\s+<hr/>\s+<h1>`)
-	log.Println(fitRe1.MatchString(res), len(fitRe1.FindAllString(res, -1)))
-
-	// replace
-	res = fitRe1.ReplaceAllString(string(data), `
-<div class="content">
-<div class="col-md-7 middle-col">
-<hr/>
-<h1>`)
+	// filter1: content
+	fitRe1 := regexp.MustCompile(`(?msU)<div class="content">\s+<div class="col-md-7 middle-col">\s+(?P<title><h1>.*</h1>).*<div class="clearer"></div>\s+<hr/>`)
+	helper.RegexDebug("content regex:", fitRe1, res, false)
+	res = fitRe1.ReplaceAllStringFunc(res, func(s string) string {
+		var result []byte
+		template := `<div class="content"><div class="col-md-7 middle-col">${title} <h3>` + url + `</h3><hr/>`
+		for _, submatches := range fitRe1.FindAllStringSubmatchIndex(s, -1) {
+			result = fitRe1.ExpandString(result, template, s, submatches)
+		}
+		return string(result)
+	})
 
 	// filter2 : filter <script>
-	fitRe2 := regexp.MustCompile(`(?ms)<script>(<!--)?.*(//-->)?</script>`)
-	//log.Println(fitRe2.MatchString(res))
-	res = fitRe2.ReplaceAllString(res, `@@@@@`)
+	fitRe2 := regexp.MustCompile(`(?msU)<script[^>]*>(<!--)?[^<]*(//-->)?</script>`)
+	helper.RegexDebug("script regex:", fitRe2, res, false)
+	res = fitRe2.ReplaceAllString(res, ``)
 
 	// filter3 <hr/> pre-btn &  nxt-btn <hr/>
-	fitRe3 := regexp.MustCompile(`(?ms)(<hr/>)?.<div class="pre-btn">.*print-btn center.*nxt-btn.*<hr/>`)
-	//log.Println(fitRe3.MatchString(res), len(fitRe3.FindAllString(res, -1)))
-	res = fitRe3.ReplaceAllString(res, `=====`)
+	fitRe3 := regexp.MustCompile(`(?msU)<hr[^>]*>\s+<div class="pre-btn">.*<div class="nxt-btn">.*<hr[^>]*>`)
+	helper.RegexDebug("pre-btn regex:", fitRe3, res, false)
+	res = fitRe3.ReplaceAllString(res, ``)
 
 	// filter4 <img>
-	fitRe4 := regexp.MustCompile(`<img.*>`)
-	log.Println(fitRe4.MatchString(res), len(fitRe4.FindAllString(res, -1)))
-	res = fitRe4.ReplaceAllString(res, `++++`)
+	fitRe4 := regexp.MustCompile(`<img[^>]*>`)
+	helper.RegexDebug("image regex:", fitRe4, res, false)
+	res = fitRe4.ReplaceAllString(res, ``)
+
+	// filter5 Advertisements
+	fitRe5 := regexp.MustCompile(`<div[^>]*>Advertisements</div>`)
+	helper.RegexDebug("advertisement regex:", fitRe5, res, false)
+	res = fitRe5.ReplaceAllString(res, ``)
 
 	// write to file
 	//fmt.Println(res)
-	if err := ioutil.WriteFile(helper.AppStorage+`/download_new.html`, []byte(res), 0644); err != nil {
+	if err := ioutil.WriteFile(helper.TestDataPath+`/html/download_new.html`, []byte(res), 0644); err != nil {
 		log.Fatalln(err)
 	}
 }

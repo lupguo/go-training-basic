@@ -5,6 +5,7 @@ import (
 	"go-example/case/tutorialspoint/internal/body"
 	"go-example/helper"
 	"log"
+	"os"
 	"regexp"
 	"sync"
 )
@@ -30,7 +31,7 @@ func (p *Page) AnalyzeContent() (content []byte, err error) {
 func content(url string) (data []byte, err error) {
 	contentPage := &Page{
 		url,
-		regexp.MustCompile(`(?smU)<div class="content">.*</div>`),
+		nil,
 	}
 	return contentPage.AnalyzeContent()
 }
@@ -93,16 +94,19 @@ func main() {
 	}
 
 	// concurrency get content part
-	contMap := concurContent(clinks, 5)
+	contMap := concurContent(clinks, 10)
 
-	// write to
-	htmlFile := helper.MustOpenFile("./storage/app/download.html")
-	defer htmlFile.Close()
+	// write to file
+	htmlFile, err := os.OpenFile(helper.StoragePath+"/app/download-new.html", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	//defer htmlFile.Close()
+
 	for i := 0; i < len(contMap); i++ {
-		//log.Println(i, bytes.SplitN((*contMap[i]).data, []byte(""), 100), "...")
-		c := contMap[i]
-		htmlFile.WriteString(fmt.Sprintf("<h3>%s</h3>", c.url))
-		htmlFile.WriteString(string(c.data))
+		htmlFile.Write(contMap[i].data)
+		//c := contMap[i]
+		//_, _ = htmlFile.WriteString(string(c.data))
 	}
 
 	fmt.Println("Over!")

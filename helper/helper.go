@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path"
+	"regexp"
 	"runtime"
 	"text/tabwriter"
 	"time"
@@ -84,4 +85,20 @@ func TwShow(tw *tabwriter.Writer) func(args ...interface{}) {
 		}
 	}
 	return show
+}
+
+// TwStdoutShow write to format
+type ShowFun func(args ...interface{})
+
+func TwStdoutShow() (tw *tabwriter.Writer, fn ShowFun) {
+	tw = tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
+	return tw, TwShow(tw)
+}
+
+// RegexDebug show regex debug detail
+func RegexDebug(mark string, re *regexp.Regexp, res string, showDetail bool) {
+	log.Println(mark,re.MatchString(res), len(re.FindAllString(res, -1)))
+	if showDetail {
+		log.Println(re.FindAllString(res, -1))
+	}
 }
