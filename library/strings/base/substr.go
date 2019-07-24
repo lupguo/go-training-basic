@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"unicode/utf8"
 )
 
@@ -55,7 +56,15 @@ func main() {
 		rstr := []rune(str)
 		return fmt.Sprintf("%s%s", string(rstr[:len]), tail)
 	}
-	for i:=7; i<len([]rune(s)); i++ {
+	for i := 7; i < len([]rune(s)); i++ {
 		fmt.Println(substr(s, i, ".."))
 	}
+
+	// strings|bytes splitN func (not good ..)
+	fmt.Println(`stdlib substr func >>`)
+	for i := 7; i < len([]rune(s)); i++ {
+		ss := strings.SplitN(s, "", i)
+		fmt.Println(strings.Join(ss[:len(ss)-1], ""), "....")
+	}
+
 }
