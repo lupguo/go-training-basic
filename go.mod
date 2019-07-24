@@ -10,6 +10,7 @@ require (
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mattn/go-runewidth v0.0.4 // indirect
 	github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e // indirect
+	github.com/pkg/browser v0.0.0-20180916011732-0a3d74bf9ce4 // indirect
 	github.com/sirupsen/logrus v1.4.2 // indirect
 	github.com/sparrc/go-ping v0.0.0-20190530223606-d596e7045d42
 	github.com/spf13/viper v1.4.0 // indirect
