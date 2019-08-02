@@ -10,7 +10,7 @@ func main() {
 	type Message struct {
 		Name string
 		Body string
-		Time int64
+		Time int64 // default value
 	}
 
 	b := []byte(`{"Name":"Bob","Food":"Pickle"}`)
