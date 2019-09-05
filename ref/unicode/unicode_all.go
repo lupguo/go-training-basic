@@ -12,15 +12,17 @@ func main() {
 }
 
 func printRange(begin, end int) {
-	if end - begin > 5000 {
+	if end-begin > 5000 {
 		log.Fatalln("too many print")
 	}
-	for i := begin; i < end; i++ {
+
+	for num, i := 0, begin; i < end; i++ {
+		num++
 		if ! unicode.IsGraphic(rune(i)) {
 			return
 		}
-		fmt.Printf("%#U ", i)
-		if i%5 == 0 {
+		fmt.Printf("%c ", i)
+		if num%5 == 0 {
 			fmt.Println()
 		}
 	}

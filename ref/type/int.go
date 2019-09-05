@@ -54,6 +54,7 @@ func main() {
 		'\U00002691',
 		03233,
 		0xe411,
+		1 << 31 -1,
 	}
 
 	tw, show := helper.TwStdoutShow()
