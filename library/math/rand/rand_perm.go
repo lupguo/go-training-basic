@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"math/rand"
+)
+
 func main() {
-	$END$
+	fmt.Println(rand.Perm(15))
 }

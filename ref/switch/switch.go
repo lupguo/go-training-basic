@@ -11,6 +11,11 @@ func main() {
 	sw2()
 	fmt.Println("sw3>>")
 	sw3()
+	fmt.Println("\nsw4>>")
+	//var k interface{}
+	k := new(int)
+	sw4(k) //output default, k != nil, k is *int
+	fmt.Printf("%T", k)
 }
 
 // fallthrough +1024unit
@@ -63,4 +68,15 @@ forloop:
 		}
 	}
 	fmt.Println(nums)
+}
+
+func sw4(k interface{})  {
+	switch k {
+	case nil:
+		fmt.Println("nil")
+	case "":
+		fmt.Println("empty string")
+	default:
+		fmt.Println("default")
+	}
 }

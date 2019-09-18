@@ -18,43 +18,50 @@ func reverseList(head *ListNode) *ListNode {
 	if head == nil {
 		// empty list
 		return nil
-	} else if (head.Next == nil) {
+	} else if head.Next == nil {
 		// only one element
 		return head
 	} else {
 		// loop the head list into stack, dump to newHead list
 		var stackNodes []*ListNode
-		for head.Next != nil {
-			stackNodes = append(stackNodes, head)
+		for n := head; n != nil; n = n.Next {
+			stackNodes = append(stackNodes, n)
 		}
+		// new head link list
 		newHead := new(ListNode)
-		for _, node := range stackNodes {
-			newHead.Next = node
+		n := newHead
+		for i := len(stackNodes) - 1; i > -1; i-- {
+			n.Next = &ListNode{
+				Val:  stackNodes[i].Val,
+				Next: nil,
+			}
+			n = n.Next
 		}
-		return newHead
+		return newHead.Next
 	}
 }
 
 func main() {
-	vals := []int{1, 2, 3, 4, 5}
+	nums := []int{1, 2, 3, 4, 5}
 
 	// input
 	head := &ListNode{
-		Val:  0,
+		Val:  -1,
 		Next: new(ListNode),
 	}
-	for _, v := range vals {
-		head.Next = &ListNode{
+	n := head
+	for _, v := range nums {
+		n.Next = &ListNode{
 			Val:  v,
-			Next: new(ListNode),
+			Next: nil,
 		}
+		n = n.Next
 	}
-
+	head = head.Next
 	// reversal
 	reversal := reverseList(head)
-
 	// output
-	for n := reversal; n != nil && n.Next != nil; n = n.Next {
+	for n := reversal; n != nil; n = n.Next {
 		fmt.Printf("%d ", n.Val)
 	}
 }
