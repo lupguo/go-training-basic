@@ -15,7 +15,7 @@ func main() {
 	age := m.Get("age").Int()
 	male := m.Get("male").Bool(false)
 	height := m.Get("height").Float32(0)
-	hobby := m.Get("hobby").Str()
+	hobby := m.Get("hobby").Str("default_hobby")
 
 	fmt.Printf("name:%s,age(%d),male(%t),height(%0.2f),hobby:%s\n", name, age, male, height, hobby)
 
