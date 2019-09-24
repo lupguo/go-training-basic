@@ -25,5 +25,5 @@ require (
 	golang.org/x/text v0.3.2 // indirect
 	golang.org/x/tools v0.0.0-20190724185037-8aa4eac1a7c1
 	gopkg.in/yaml.v2 v2.2.2
-	stathat.com/c/consistent v1.0.0 // indirect
+	stathat.com/c/consistent v1.0.0
 )

@@ -9,6 +9,7 @@ func main() {
 	type Animal struct {
 		Name  string
 		Order string
+		desc  string
 	}
 	var jsonBlob = []byte(`[
 	{"Name": "Platypus", "Order": "Monotremata"},

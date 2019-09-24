@@ -22,6 +22,7 @@ func main() {
 	}
 	fmt.Printf("%#v\n",m)
 
+	// 指针引用
 	type Bar int
 	type Foo struct {
 		Bar *Bar
@@ -32,5 +33,5 @@ func main() {
 	if err := json.Unmarshal(c, &mc); err != nil {
 		panic(err)
 	}
-	fmt.Printf("%#v\n",*mc.Bar)
+	fmt.Printf("%#v, %#v\n",mc, *mc.Bar)
 }
