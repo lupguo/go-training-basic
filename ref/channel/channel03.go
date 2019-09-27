@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"sync"
 	"time"
 )
@@ -16,12 +17,10 @@ func sender(c chan int) {
 }
 
 func main() {
+	runtime.GOMAXPROCS(1)
 	c := make(chan int, 3)
-
 	go sender(c)
-
 	fmt.Printf("Length of channel c is %v and capacity of channel c is %v\n", len(c), cap(c))
-
 	// read values from c (blocked here)
 	wg := new(sync.WaitGroup)
 	wg.Add(4)

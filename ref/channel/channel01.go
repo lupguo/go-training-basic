@@ -7,7 +7,6 @@ import (
 
 func greet(c chan string) {
 	fmt.Println("Hello " + <-c + "!")
-
 	// finish channel block, main goroutine will go on process
 	time.Sleep(1*time.Second)
 	fmt.Println("Not running. Because main goroutine is out!")

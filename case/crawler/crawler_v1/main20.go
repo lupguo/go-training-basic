@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-example/case/crawler/internal/links"
+	"go-example/case/crawler/crawler_v1/internal/links"
 	"log"
 )
 

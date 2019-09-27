@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"unicode"
 )
 
@@ -11,7 +12,7 @@ func squares(c chan interface{}) {
 	}
 
 	for _, r := range "Hey, man!" {
-		c <- unicode.ToUpper(r)
+		c <- strconv.QuoteRune(unicode.ToUpper(r))
 	}
 
 	close(c) // close channel
@@ -30,7 +31,7 @@ func main() {
 			fmt.Println(val, ok, "<-- loop broke!")
 			break // exit break loop
 		} else {
-			fmt.Println(val, ok)
+			fmt.Printf("%v, %t\n", val, ok)
 		}
 	}
 

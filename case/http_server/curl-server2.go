@@ -23,10 +23,11 @@ func main() {
 			log.Println("http.flusher")
 		}
 		//w.Header().Set("x-request-id", "ok")
-		for i := 0; i < 10; i++ {
-			log.Printf("URI:%s, RemoteAddr:%v\n", r.RequestURI, r.RemoteAddr)
+		for i := 0; i < 5; i++ {
 			now := time.Now()
-			time.Sleep(time.Duration(rand.Intn(10)+1) * 300 * time.Millisecond)
+			elapse := time.Duration(rand.Intn(10)+1) * 3000 * time.Millisecond
+			log.Printf("URI:%s,Host:%v, RemoteAddr:%v, execute elapse %v\n", r.RequestURI,r.Host, r.RemoteAddr, elapse)
+			time.Sleep(elapse)
 			fmt.Fprintf(w,"URI:%s,TIME ESAPSED:%s\n", r.RequestURI, time.Since(now))
 			v.Flush()
 		}
