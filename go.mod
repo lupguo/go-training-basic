@@ -11,6 +11,7 @@ require (
 	github.com/jroimartin/gocui v0.4.0
 	github.com/mattn/go-colorable v0.1.2
 	github.com/mattn/go-runewidth v0.0.4 // indirect
+	github.com/newrelic/go-agent v2.13.0+incompatible
 	github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e // indirect
 	github.com/pkg/browser v0.0.0-20180916011732-0a3d74bf9ce4
 	github.com/sirupsen/logrus v1.4.2
@@ -19,8 +20,9 @@ require (
 	github.com/spf13/viper v1.4.0
 	github.com/stretchr/objx v0.2.0
 	github.com/tcnksm/go-httpstat v0.2.0
+	github.com/valyala/fasthttp v1.5.0
 	github.com/zserge/webview v0.0.0-20190123072648-16c93bcaeaeb
-	golang.org/x/net v0.0.0-20190724013045-ca1201d0de80
+	golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297
 	golang.org/x/sys v0.0.0-20190712062909-fae7ac547cb7
 	golang.org/x/text v0.3.2 // indirect
 	golang.org/x/tools v0.0.0-20190724185037-8aa4eac1a7c1
