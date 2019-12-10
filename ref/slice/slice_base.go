@@ -16,7 +16,6 @@ func main() {
 	cpnums := copy(sc, s[3:])
 	fmt.Println("Copy from s to sc:", cpnums)
 	copy(sc, sc[1:7])
-
 	copy(s, s[1:5])
 	// change
 	ss := [][]int{

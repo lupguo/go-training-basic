@@ -2,60 +2,50 @@ package main
 
 import "fmt"
 
-//A
-type A struct {
-}
-
+// A
+type A struct{}
 func (a A) show() {
-	fmt.Println("A")
+	fmt.Println("A call by show()")
 }
-
-func (a *A) pshow() {
-	fmt.Println("*A")
+func (a *A) ptShow() {
+	fmt.Println("*A call by ptShow()")
 }
-
-//B
+// B
 type B struct {
 	A
 }
-
-//func (b B) show() {
-//	fmt.Println("B")
-//}
-//
-//func (b *B) pshow() {
-//	fmt.Println("*B")
-//}
-
-//C
+// C
 type C struct {
 	*A
 }
 
-//func (c C) show() {
-//	fmt.Println("C")
-//}
-//func (c *C) pshow() {
-//	fmt.Println("*C")
-//}
-
 func main() {
-	a, b, c := A{}, B{}, C{}
-	pa, pb, pc := new(A), new(B), new(C)
-
-	fmt.Println("show::")
+	fmt.Println("test a, pa show:")
+	a, pa := A{}, new(A)
 	a.show()
-	b.show() //b是结构体变量，B类似是包含A结构体，非指针引用，可以调用接收器为A或者*A类型的接收器
-	//c.show() c是结构体变量，但C类型是包含对A结构体的指针引用，无法直接调用接收器为A的引用
-	a.pshow()
-	b.pshow() //b是结构体变量，B类似是包含A结构体，非指针引用，可以调用接收器为A或者*A类型的接收器
-	c.pshow()
-
-	fmt.Println("pointer show::")
+	a.ptShow()
 	pa.show()
-	pb.show()  //pb是结构体指针变量，B类似是包含A结构体，非指针引用，可以调用接收器为A或者*A类型的接收器
-	//pc.show()
-	pa.pshow()
-	pb.pshow() //pb是结构体指针变量，B类似是包含A结构体，非指针引用，可以调用接收器为A或者*A类型的接收器
-	pc.pshow()
+	pa.ptShow()
+	fmt.Printf("type of a(%T), pa(%T)\n", a, pa)
+
+	//type B struct {
+	//	A
+	//}
+	fmt.Println("\ntest b, pb show:")
+	b, pb := B{}, new(B)
+	b.show()
+	b.ptShow()
+	pb.show()
+	pb.ptShow()
+
+	//type C struct {
+	//	*A
+	//}
+	fmt.Println("\ntest c, pc show:")
+	c, pc := C{}, new(C)
+	//c.show()	//panic c为C类型
+	c.ptShow()
+	//pc.show()	//panic pc为*C类型，
+	pc.ptShow()
+	fmt.Printf("type of c.A(%T), pc.A(%T)\n", c.A, pc.A)
 }
