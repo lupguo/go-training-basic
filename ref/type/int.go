@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"go-example/helper"
+	"math"
 	"unicode"
 )
 
@@ -54,7 +55,8 @@ func main() {
 		'\U00002691',
 		03233,
 		0xe411,
-		1 << 31 -1,
+		1<<31 - 1,
+		math.MaxUint32,
 	}
 
 	tw, show := helper.TwStdoutShow()

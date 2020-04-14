@@ -5,13 +5,16 @@ import (
 	"io"
 )
 
-const debug = false
+const debug = true
 
 func main() {
 
 	var buf *bytes.Buffer
 	if debug {
 		buf = new(bytes.Buffer) // enable collection of output
+		for i := 0; i < 1e6; i++ {
+			buf.WriteByte(byte(i))
+		}
 	}
 	f(buf) // NOTE: subtly incorrect!
 	if debug {

@@ -55,3 +55,16 @@ func TestEqual(t *testing.T) {
 	assert.Equal(t, s1, s2, "slice s1 should equal s2")
 	assert.NotEqual(t, s1, s3, "s1 not equal s3")
 }
+
+func TestSize(t *testing.T) {
+	var a []int = nil
+	var b []int
+	t.Logf("addr a(%p), len(a)=%d, cap(a)=%d, a=%#v", &a, len(a), cap(a), a)
+	t.Logf("addr b(%p), len(b)=%d, cap(b)=%d, b=%#v", &b, len(b), cap(b), b)
+	//a, a[0] = []int{1, 2}, 9 // panic a[0] = 9时候 a长度为0, 越界错误
+	//t.Log(a, a[0])
+
+	a = []int{1, 2, 3, 4, 5}
+	a[0], a[0], a[0] = 7, 8, 9
+	t.Log(a)
+}

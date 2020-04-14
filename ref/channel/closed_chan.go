@@ -1,20 +1,24 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
-	ch := make(chan int)
-	close(ch)
-	for i := 0; i < 5; i++ {
-		fmt.Println(<-ch)
-	}
-	ch = make(chan int)
+	ch1 := make(chan int)
 	go func() {
-		ch <- 50
+		time.Sleep(3 * time.Second)
+		close(ch1)
+		//close(ch1) // panic: close of closed channel
 	}()
-	if v, ok := <-ch; ok { // ok 为true表示还可以接收，false表示不可接收，表示通道被关闭
-		fmt.Println("receive ", v)
+	<-ch1
+	<-ch1 // receive zero val
+	fmt.Println("block done")
+
+	if v, ok := <-ch1; ok {
+		fmt.Println("channel is open, val ", v)
+	} else {
+		fmt.Println("channel is closed.")
 	}
-	close(ch)
-	ch <- 100 // panic: send on closed channel
 }
