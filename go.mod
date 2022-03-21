@@ -7,7 +7,6 @@ require (
 	github.com/easierway/concurrent_map v0.0.0-20190103024436-7073b0dd7e95
 	github.com/fsnotify/fsnotify v1.4.7
 	github.com/go-sql-driver/mysql v1.4.1
-	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20190812055157-5d271430af9f
 	github.com/gorilla/mux v1.7.3
 	github.com/jessevdk/go-flags v1.4.0
@@ -27,11 +26,10 @@ require (
 	github.com/stretchr/objx v0.2.0
 	github.com/stretchr/testify v1.3.0
 	github.com/tcnksm/go-httpstat v0.2.0
-	github.com/valyala/fasthttp v1.5.0
+	github.com/valyala/fasthttp v1.34.0
 	github.com/zserge/webview v0.0.0-20190123072648-16c93bcaeaeb
-	golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297
-	golang.org/x/sys v0.0.0-20190712062909-fae7ac547cb7
-	golang.org/x/text v0.3.2 // indirect
+	golang.org/x/net v0.0.0-20220225172249-27dd8689420f
+	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9
 	golang.org/x/tools v0.0.0-20190724185037-8aa4eac1a7c1
 	gopkg.in/yaml.v2 v2.2.2
 	stathat.com/c/consistent v1.0.0
